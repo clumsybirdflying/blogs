@@ -1,0 +1,26 @@
+var minimumMountainRemovals = function(nums) {
+    // 最长子串
+    function handle(arr) {
+        const dp = [];
+        for (let i = 0; i < arr.length; i++) {
+            dp[i] = 1;
+            for (let j = 0; j < i; j++) {
+                if (arr[j] < arr[i]) {
+                    dp[i] = Math.max(dp[i], dp[j] + 1);
+                }
+            }
+        }
+        // console.log(Math.max(...dp));
+        return dp;
+    }
+
+    const arr = nums
+    const dp1 = handle(arr);
+    const dp2 = handle(arr.reverse()).reverse();
+    let max = 0;
+    for (let i = 0; i < dp1.length; i++) {
+        max = Math.max(max, dp1[i] + dp2[i] - 1);
+    }
+    console.log(arr.length - max);
+    return arr.length - max;
+};
